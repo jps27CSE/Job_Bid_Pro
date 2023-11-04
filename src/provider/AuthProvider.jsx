@@ -1,28 +1,35 @@
-import { createContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import PropTypes from "prop-types";
+import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/FirebaseConfig";
-import axios from "axios";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const GoogleProvider = new GoogleAuthProvider();
 
-  const createUser = (email, password) => {
+  const registerUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signIn = (email, password) => {
+  const loginUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const googleLogin = () => {
+    setLoading(true);
+    return signInWithPopup(auth, GoogleProvider);
   };
 
   const logOut = () => {
@@ -33,29 +40,30 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log("current user", currentUser);
       setLoading(false);
     });
-    return () => {
-      return unsubscribe();
-    };
-  }, [user?.email]);
 
-  const authInfo = {
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const authValue = {
+    registerUser,
     user,
-    loading,
-    createUser,
-    signIn,
+    loginUser,
     logOut,
+    loading,
+    googleLogin,
   };
 
   return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 };
 
 export default AuthProvider;
 
 AuthProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
