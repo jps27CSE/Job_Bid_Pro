@@ -1,9 +1,52 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import LoginAnimation from "../looties/login.json";
 import Lottie from "lottie-react";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { loginUser, googleLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        toast.success(`Google Logging Successfully..
+       Email: ${result.user.email}
+      `);
+        if (location.state === null) {
+          navigate("/");
+        } else {
+          navigate(`${location.state}`);
+        }
+      })
+      .catch((error) => toast.error(error.message));
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    loginUser(email, password)
+      .then((result) => {
+        toast.success(`
+        Login Successfully!...................
+
+        Email : ${result.user.email} 
+        `);
+        if (location.state === null) {
+          navigate("/");
+        } else {
+          navigate(`${location.state}`);
+        }
+      })
+      .catch((error) => toast.error(error.message));
+  };
+
   return (
     <div>
       <div>
@@ -26,7 +69,7 @@ const Login = () => {
               </p>
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <form className="card-body">
+              <form onSubmit={handleLogin} className="card-body">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
@@ -64,7 +107,7 @@ const Login = () => {
                 </p>
               </form>
               <div className="flex mx-auto p-4">
-                <button className="btn btn-ghost">
+                <button onClick={handleGoogleLogin} className="btn btn-ghost">
                   <FcGoogle className="text-2xl" />
                   Continue with Google
                 </button>
