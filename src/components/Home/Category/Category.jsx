@@ -1,7 +1,39 @@
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import CategoryItem from "./CategoryItem/CategoryItem";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 const Category = () => {
+  const [webDevelopmentData, setWebDevelopmentData] = useState([]);
+  const [digitalMarketingData, setDigitalMarketingData] = useState([]);
+  const [graphicsDesignData, setGraphicsDesignData] = useState([]);
+  const { data, isLoading } = useQuery({
+    queryKey: ["get"],
+    queryFn: () =>
+      fetch("http://localhost:5000/allJobs").then((res) => res.json()),
+    initialData: [],
+  });
+
+  useEffect(() => {
+    if (data) {
+      // Filter the data by category and update the states
+      const webDevelopmentJobs = data.filter(
+        (job) => job.category === "Web Development"
+      );
+      setWebDevelopmentData(webDevelopmentJobs);
+
+      const digitalMarketingJobs = data.filter(
+        (job) => job.category === "Digital Marketing"
+      );
+      setDigitalMarketingData(digitalMarketingJobs);
+
+      const graphicsDesignJobs = data.filter(
+        (job) => job.category === "Graphics Design"
+      );
+      setGraphicsDesignData(graphicsDesignJobs);
+    }
+  }, [data]);
+
   return (
     <div>
       <h1 className="text-4xl font-bold mb-5">Category</h1>
@@ -14,13 +46,24 @@ const Category = () => {
 
         <TabPanel>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-            <CategoryItem />
-            <CategoryItem />
-            <CategoryItem />
+            {webDevelopmentData.map((job) => (
+              <CategoryItem key={job._id} job={job} />
+            ))}
           </div>
         </TabPanel>
         <TabPanel>
-          <h2>Any content 2</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            {digitalMarketingData.map((job) => (
+              <CategoryItem key={job._id} job={job} />
+            ))}
+          </div>
+        </TabPanel>
+        <TabPanel>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            {graphicsDesignData.map((job) => (
+              <CategoryItem key={job._id} job={job} />
+            ))}
+          </div>
         </TabPanel>
       </Tabs>
     </div>

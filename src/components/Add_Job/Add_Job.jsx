@@ -35,6 +35,8 @@ const Add_Job = () => {
     axios
       .post("http://localhost:5000/add_job", newJob)
       .then((res) => console.log(res));
+
+    form.reset();
   };
 
   const handleCategorySelect = (e) => {
