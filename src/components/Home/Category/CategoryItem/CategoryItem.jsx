@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 const CategoryItem = ({ job }) => {
   console.log(job);
   return (
@@ -11,7 +12,9 @@ const CategoryItem = ({ job }) => {
         </p>
         <p>{job.description}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Bid Now</button>
+          <Link to={`/job_deteails/${job._id}`}>
+            <button className="btn btn-primary">Bid Now</button>
+          </Link>
         </div>
       </div>
     </div>

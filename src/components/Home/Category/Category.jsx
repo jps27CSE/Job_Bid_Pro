@@ -15,8 +15,7 @@ const Category = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      // Filter the data by category and update the states
+    if (!isLoading && Array.isArray(data)) {
       const webDevelopmentJobs = data.filter(
         (job) => job.category === "Web Development"
       );
@@ -32,7 +31,7 @@ const Category = () => {
       );
       setGraphicsDesignData(graphicsDesignJobs);
     }
-  }, [data]);
+  }, [data, isLoading]);
 
   return (
     <div>
