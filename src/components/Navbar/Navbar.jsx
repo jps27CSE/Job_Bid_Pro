@@ -28,7 +28,7 @@ const Navbar = () => {
         <NavLink to="/cart">My Posted Jobs</NavLink>
       </li>
       <li>
-        <NavLink to="/cart">My Bids</NavLink>
+        <NavLink to="/my_bids">My Bids</NavLink>
       </li>
       <li>
         <NavLink to="/cart">Bid Requests</NavLink>
