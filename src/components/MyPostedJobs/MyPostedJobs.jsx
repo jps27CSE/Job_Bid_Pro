@@ -32,7 +32,12 @@ const MyPostedJobs = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           {postedData.length > 0 ? (
             postedData.map((item) => (
-              <SinglePostedJob key={item._id} data={item} />
+              <SinglePostedJob
+                key={item._id}
+                data={item}
+                postedData={postedData}
+                setPostedData={setPostedData}
+              />
             ))
           ) : (
             <div className=" ml-0 md:ml-0 lg:ml-72 flex flex-col md:flex-col lg:flex-row justify-center mx-auto">
