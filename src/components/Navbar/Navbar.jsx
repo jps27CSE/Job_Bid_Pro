@@ -2,9 +2,20 @@ import { Link, NavLink } from "react-router-dom";
 import Brandlogo from "../../assets/brandLogo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import axios from "axios";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    axios
+      .post("http://localhost:5000/logout", user, {
+        withCredentials: true,
+      })
+      .then((res) => console.log(res));
+    logOut();
+  };
+
   const navLinks = (
     <>
       <li>
@@ -82,7 +93,7 @@ const Navbar = () => {
               <button className="btn ">Login</button>
             </Link>
           ) : (
-            <button onClick={logOut} className="btn">
+            <button onClick={handleLogout} className="btn">
               Logout
             </button>
           )}
