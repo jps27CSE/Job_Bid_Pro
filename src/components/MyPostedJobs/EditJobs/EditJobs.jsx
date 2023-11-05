@@ -3,10 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../provider/AuthProvider";
 import EditAnimation from "../../looties/Edit.json";
 import Lottie from "lottie-react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EditJobs = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -26,11 +28,11 @@ const EditJobs = () => {
     const job = form.job.value;
     const deadline = form.deadline.value;
     const description = form.description.value;
-    const category = selectedCategory;
+    const category = selectedCategory ? selectedCategory : data?.category;
     const minimum = form.minimum.value;
     const maximum = form.maximum.value;
 
-    const newJob = {
+    const updateJob = {
       employer,
       job,
       deadline,
@@ -40,7 +42,16 @@ const EditJobs = () => {
       maximum,
     };
 
-    console.log(newJob);
+    axios
+      .put(`http://localhost:5000/edit_job/${id}`, {
+        updateJob,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Updated Successfully");
+          navigate("/");
+        }
+      });
 
     form.reset();
   };
@@ -146,6 +157,7 @@ const EditJobs = () => {
                     <input
                       type="text"
                       name="selectedCategory"
+                      defaultValue={data?.category}
                       value={selectedCategory}
                       className="input input-bordered"
                       readOnly
