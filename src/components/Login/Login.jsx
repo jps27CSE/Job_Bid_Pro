@@ -5,6 +5,7 @@ import Lottie from "lottie-react";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const { loginUser, googleLogin } = useContext(AuthContext);
@@ -33,6 +34,17 @@ const Login = () => {
 
     loginUser(email, password)
       .then((result) => {
+        const sendingUser = { email };
+        axios
+          .post("http://localhost:5000/jwt", sendingUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              navigate("/");
+            }
+          });
+
         toast.success(`
         Login Successfully!...................
 
