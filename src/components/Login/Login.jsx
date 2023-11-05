@@ -15,6 +15,16 @@ const Login = () => {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
+        axios
+          .post("http://localhost:5000/jwt", result?.user?.email, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              console.log(res);
+            }
+          });
+
         toast.success(`Google Logging Successfully..
        Email: ${result.user.email}
       `);
@@ -41,7 +51,7 @@ const Login = () => {
           })
           .then((res) => {
             if (res.data.success) {
-              navigate("/");
+              console.log(res);
             }
           });
 

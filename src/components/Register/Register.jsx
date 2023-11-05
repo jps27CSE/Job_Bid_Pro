@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import LoginAnimation from "../looties/register.json";
 import Lottie from "lottie-react";
+import axios from "axios";
 const Register = () => {
   const { registerUser, googleLogin } = useContext(AuthContext);
 
@@ -15,6 +16,15 @@ const Register = () => {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
+        axios
+          .post("http://localhost:5000/jwt", result?.user?.email, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              console.log(res);
+            }
+          });
         toast.success(`Google Register Successfully..
       Email: ${result.user.email}
      `);
@@ -49,6 +59,17 @@ const Register = () => {
     registerUser(email, password)
       .then((result) => {
         console.log(result);
+        const sendingUser = { email };
+        axios
+          .post("http://localhost:5000/jwt", sendingUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              console.log(res);
+            }
+          });
+
         updateProfile(result.user, {
           displayName: name,
           photoURL: photo,
