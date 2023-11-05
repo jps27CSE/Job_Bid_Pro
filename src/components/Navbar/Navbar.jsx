@@ -31,7 +31,7 @@ const Navbar = () => {
         <NavLink to="/my_bids">My Bids</NavLink>
       </li>
       <li>
-        <NavLink to="/cart">Bid Requests</NavLink>
+        <NavLink to="/bid_requests">Bid Requests</NavLink>
       </li>
     </>
   );

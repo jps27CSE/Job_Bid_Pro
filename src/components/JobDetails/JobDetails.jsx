@@ -32,10 +32,12 @@ const JobDetails = () => {
     const buyerEmail = form.buyerEmail.value;
 
     const bidJob = {
+      jobTitle: data?.job,
       biddingPrice,
       deadline,
       userEmail,
       buyerEmail,
+      status: "pending",
     };
 
     axios.post("http://localhost:5000/bid_request", bidJob).then((res) => {
@@ -60,7 +62,7 @@ const JobDetails = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">{data?.name}</h2>
+            <h2 className="card-title">{data?.job}</h2>
             <p>Deadline: {data?.deadline}</p>
             <p>
               Price Range: {data?.minimum} - {data.maximum}

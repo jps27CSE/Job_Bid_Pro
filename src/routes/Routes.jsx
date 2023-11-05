@@ -8,6 +8,7 @@ import JobDetails from "../components/JobDetails/JobDetails";
 import MyBids from "../components/MyBids/MyBids";
 import MyPostedJobs from "../components/MyPostedJobs/MyPostedJobs";
 import EditJobs from "../components/MyPostedJobs/EditJobs/EditJobs";
+import Bid_Requests from "../components/Bid_Requests/Bid_Requests";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/posted_jobs/edit/:id",
         element: <EditJobs />,
+      },
+      {
+        path: "/bid_requests",
+        element: <Bid_Requests />,
       },
     ],
   },

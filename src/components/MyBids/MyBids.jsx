@@ -1,26 +1,18 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const MyBids = () => {
-  const [bids, setBids] = useState([
-    {
-      jobTitle: "Job Title 1",
-      email: "user1@example.com",
-      deadline: "2023-12-31",
-      status: "pending",
-    },
-    {
-      jobTitle: "Job Title 2",
-      email: "user2@example.com",
-      deadline: "2023-11-30",
-      status: "in-progress",
-    },
-    {
-      jobTitle: "Job Title 3",
-      email: "user3@example.com",
-      deadline: "2023-11-15",
-      status: "canceled",
-    },
-  ]);
+  const { user } = useContext(AuthContext);
+  const [bids, setBids] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/my_bids?email=${user?.email}`)
+      .then((res) => setBids(res.data));
+  }, [user?.email]);
+
+  console.log(bids);
 
   const handleComplete = (index) => {
     const updatedBids = [...bids];
@@ -46,7 +38,7 @@ const MyBids = () => {
             {bids.map((bid, index) => (
               <tr key={index}>
                 <td>{bid.jobTitle}</td>
-                <td>{bid.email}</td>
+                <td>{bid.buyerEmail}</td>
                 <td>{bid.deadline}</td>
                 <td>{bid.status}</td>
                 <td>
