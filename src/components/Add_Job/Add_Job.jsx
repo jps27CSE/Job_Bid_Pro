@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import AddJobAnimation from "../looties/add_job.json";
 import Lottie from "lottie-react";
 import { AuthContext } from "../../provider/AuthProvider";
-import { axiosSecure } from "../../hooks/useAxiosSecure";
+
+import axios from "axios";
 
 const Add_Job = () => {
   const { user } = useContext(AuthContext);
@@ -21,17 +22,20 @@ const Add_Job = () => {
     const minimum = form.minimum.value;
     const maximum = form.maximum.value;
 
-    console.log(
+    const newJob = {
       employer,
       job,
       deadline,
       description,
       category,
       minimum,
-      maximum
-    );
+      maximum,
+    };
+
+    axios
+      .post("http://localhost:5000/add_job", newJob)
+      .then((res) => console.log(res));
   };
-  console.log(axiosSecure);
 
   const handleCategorySelect = (e) => {
     setSelectedCategory(e.target.innerText);
@@ -158,7 +162,7 @@ const Add_Job = () => {
                   />
                 </div>
                 <div className="form-control mt-6">
-                  <button className="btn btn-primary">Add</button>
+                  <button className="btn btn-primary">Add Job</button>
                 </div>
               </form>
             </div>
