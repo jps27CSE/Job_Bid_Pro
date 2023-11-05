@@ -18,7 +18,7 @@ const Add_Job = () => {
     const job = form.job.value;
     const deadline = form.deadline.value;
     const description = form.description.value;
-    const category = selectedCategory; // Use the selected category
+    const category = selectedCategory;
     const minimum = form.minimum.value;
     const maximum = form.maximum.value;
 

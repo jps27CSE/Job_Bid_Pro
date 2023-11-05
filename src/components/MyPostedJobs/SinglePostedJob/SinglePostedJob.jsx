@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const SinglePostedJob = ({ data }) => {
   console.log(data);
@@ -10,7 +11,9 @@ const SinglePostedJob = ({ data }) => {
           <p>{data.description}</p>
           <p>Category: {data.category}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">Update</button>
+            <Link to={`/posted_jobs/edit/${data._id}`}>
+              <button className="btn btn-primary">Update</button>
+            </Link>
             <button className="btn btn-error">Delete</button>
           </div>
         </div>
