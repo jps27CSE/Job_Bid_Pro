@@ -14,10 +14,14 @@ const MyBids = () => {
 
   console.log(bids);
 
-  const handleComplete = (index) => {
+  const handleComplete = (index, id) => {
     const updatedBids = [...bids];
     updatedBids[index].status = "complete";
     setBids(updatedBids);
+
+    axios.patch(`http://localhost:5000/my_bids/${id}`, {
+      status: "complete",
+    });
   };
 
   return (
@@ -45,7 +49,7 @@ const MyBids = () => {
                   {bid.status === "in-progress" && (
                     <button
                       className="btn btn-primary btn-xs"
-                      onClick={() => handleComplete(index)}
+                      onClick={() => handleComplete(index, bid._id)}
                     >
                       Complete
                     </button>

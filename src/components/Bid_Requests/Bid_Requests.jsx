@@ -12,18 +12,22 @@ const Bid_Requests = () => {
       .then((res) => setBids(res.data));
   }, [user?.email]);
 
-  console.log(bids);
-
-  const handleAccept = (index) => {
+  const handleAccept = (index, id) => {
     const updatedBids = [...bids];
     updatedBids[index].status = "in-progress";
     setBids(updatedBids);
+    axios.patch(`http://localhost:5000/my_bid_request/${id}`, {
+      status: "in-progress",
+    });
   };
 
-  const handleReject = (index) => {
+  const handleReject = (index, id) => {
     const updatedBids = [...bids];
-    updatedBids[index].status = "rejected";
+    updatedBids[index].status = "canceled";
     setBids(updatedBids);
+    axios.patch(`http://localhost:5000/my_bid_request/${id}`, {
+      status: "canceled",
+    });
   };
 
   return (
@@ -54,13 +58,13 @@ const Bid_Requests = () => {
                     <div>
                       <button
                         className="btn btn-primary btn-xs"
-                        onClick={() => handleAccept(index)}
+                        onClick={() => handleAccept(index, bid._id)}
                       >
                         Accept
                       </button>
                       <button
                         className="btn btn-danger btn-xs"
-                        onClick={() => handleReject(index)}
+                        onClick={() => handleReject(index, bid._id)}
                       >
                         Reject
                       </button>
