@@ -2,14 +2,27 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const SinglePostedJob = ({ data, postedData, setPostedData }) => {
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/delete_job/${id}`).then((res) => {
-      if (res.status === 200) {
-        const remaining = postedData.filter((item) => item._id !== id);
-        setPostedData(remaining);
-        toast("Job deleted successfully");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:5000/delete_job/${id}`).then((res) => {
+          if (res.status === 200) {
+            const remaining = postedData.filter((item) => item._id !== id);
+            setPostedData(remaining);
+            toast("Job deleted successfully");
+          }
+        });
       }
     });
   };
