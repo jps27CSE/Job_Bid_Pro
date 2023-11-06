@@ -7,17 +7,19 @@ import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const JobDetails = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { data, isLoading } = useQuery({
     queryKey: ["get"],
-    queryFn: () =>
-      fetch(`http://localhost:5000/job_details/${id}`).then((res) =>
-        res.json()
-      ),
+    queryFn: async () => {
+      const data = await axiosSecure.get(`/job_details/${id}`);
+      return data.data;
+    },
     initialData: {},
   });
   const isOwner = user?.email === data?.employer;

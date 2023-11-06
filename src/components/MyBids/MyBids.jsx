@@ -1,21 +1,21 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyBids = () => {
   const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
   const [bids, setBids] = useState([]);
   const [ascendingSort, setAscendingSort] = useState(false);
 
   useEffect(() => {
-    axios
+    axiosSecure
       .get(
-        `http://localhost:5000/my_bids?email=${user?.email}&sort=${
-          ascendingSort ? "asc" : "desc"
-        }`
+        `/my_bids?email=${user?.email}&sort=${ascendingSort ? "asc" : "desc"}`
       )
       .then((res) => setBids(res.data));
-  }, [user?.email, ascendingSort]);
+  }, [user?.email, ascendingSort, axiosSecure]);
 
   const handleSort = () => {
     setAscendingSort(!ascendingSort);
@@ -35,14 +35,13 @@ const MyBids = () => {
     <div>
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead>
             <tr>
               <th>Job Title</th>
               <th>Email</th>
               <th>Deadline</th>
               <th>
-                Status{" "}
+                Status
                 <button
                   onClick={handleSort}
                   className="bg-lime-400 rounded-lg h-8 w-24 ml-2"
