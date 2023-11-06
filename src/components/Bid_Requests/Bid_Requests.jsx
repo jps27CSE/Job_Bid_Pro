@@ -37,7 +37,7 @@ const Bid_Requests = () => {
       <Helmet>
         <title>JobBidPro | Bid Requests</title>
       </Helmet>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mb-28">
         <table className="table">
           <thead>
             <tr>
