@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../provider/AuthProvider";
-import axios from "axios";
 import CompleteAnimation from "../../looties/Complete.json";
 import EmptyJobAnimation from "../../looties/EmptyJob.json";
 import LoadingSpinner from "../../looties/LoadingSpinner1.json";

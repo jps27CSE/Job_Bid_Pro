@@ -1,24 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
-import axios from "axios";
 import SinglePostedJob from "./SinglePostedJob/SinglePostedJob";
 import EmptyAnimation from "../looties/Empty.json";
 import LoadingSpinner from "../looties/LoadingSpinner1.json";
 import Lottie from "lottie-react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyPostedJobs = () => {
   const { user } = useContext(AuthContext);
   const [postedData, setPostedData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/my_posted_jobs?email=${user?.email}`)
-      .then((res) => {
-        setPostedData(res.data);
-        setIsLoading(false);
-      });
-  }, [user?.email]);
+    axiosSecure.get(`/my_posted_jobs?email=${user?.email}`).then((res) => {
+      setPostedData(res.data);
+      setIsLoading(false);
+    });
+  }, [user?.email, axiosSecure]);
 
   return (
     <div>
