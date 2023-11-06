@@ -4,11 +4,13 @@ import Lottie from "lottie-react";
 import { AuthContext } from "../../provider/AuthProvider";
 
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Add_Job = () => {
   const { user } = useContext(AuthContext);
   const [selectedCategory, setSelectedCategory] = useState("");
-
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -32,9 +34,12 @@ const Add_Job = () => {
       maximum,
     };
 
-    axios
-      .post("http://localhost:5000/add_job", newJob)
-      .then((res) => console.log(res));
+    axios.post("http://localhost:5000/add_job", newJob).then((res) => {
+      if (res.status === 200) {
+        toast("Job Added Successfully");
+        navigate("/my_posted_jobs");
+      }
+    });
 
     form.reset();
   };
