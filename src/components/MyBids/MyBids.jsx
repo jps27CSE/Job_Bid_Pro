@@ -5,14 +5,21 @@ import { AuthContext } from "../../provider/AuthProvider";
 const MyBids = () => {
   const { user } = useContext(AuthContext);
   const [bids, setBids] = useState([]);
+  const [ascendingSort, setAscendingSort] = useState(false);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/my_bids?email=${user?.email}`)
+      .get(
+        `http://localhost:5000/my_bids?email=${user?.email}&sort=${
+          ascendingSort ? "asc" : "desc"
+        }`
+      )
       .then((res) => setBids(res.data));
-  }, [user?.email]);
+  }, [user?.email, ascendingSort]);
 
-  console.log(bids);
+  const handleSort = () => {
+    setAscendingSort(!ascendingSort);
+  };
 
   const handleComplete = (index, id) => {
     const updatedBids = [...bids];
@@ -34,7 +41,15 @@ const MyBids = () => {
               <th>Job Title</th>
               <th>Email</th>
               <th>Deadline</th>
-              <th>Status</th>
+              <th>
+                Status{" "}
+                <button
+                  onClick={handleSort}
+                  className="bg-lime-400 rounded-lg h-8 w-24 ml-2"
+                >
+                  {ascendingSort ? "Sort Descending" : "Sort Ascending"}
+                </button>
+              </th>
               <th>Complete</th>
             </tr>
           </thead>
