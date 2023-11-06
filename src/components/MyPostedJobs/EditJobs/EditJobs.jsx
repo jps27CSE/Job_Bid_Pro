@@ -16,7 +16,7 @@ const EditJobs = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/job_details/${id}`)
+      .get(`https://b8a11-server-side-jps27-cse.vercel.app/job_details/${id}`)
       .then((item) => setData(item.data));
   }, [id]);
 
@@ -44,7 +44,7 @@ const EditJobs = () => {
     };
 
     axios
-      .put(`http://localhost:5000/edit_job/${id}`, {
+      .put(`https://b8a11-server-side-jps27-cse.vercel.app/edit_job/${id}`, {
         updateJob,
       })
       .then((res) => {

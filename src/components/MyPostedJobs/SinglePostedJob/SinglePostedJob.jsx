@@ -16,13 +16,17 @@ const SinglePostedJob = ({ data, postedData, setPostedData }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/delete_job/${id}`).then((res) => {
-          if (res.status === 200) {
-            const remaining = postedData.filter((item) => item._id !== id);
-            setPostedData(remaining);
-            toast("Job deleted successfully");
-          }
-        });
+        axios
+          .delete(
+            `https://b8a11-server-side-jps27-cse.vercel.app/delete_job/${id}`
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              const remaining = postedData.filter((item) => item._id !== id);
+              setPostedData(remaining);
+              toast("Job deleted successfully");
+            }
+          });
       }
     });
   };

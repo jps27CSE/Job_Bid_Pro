@@ -17,9 +17,13 @@ const Login = () => {
     googleLogin()
       .then((result) => {
         axios
-          .post("http://localhost:5000/jwt", result?.user?.email, {
-            withCredentials: true,
-          })
+          .post(
+            "https://b8a11-server-side-jps27-cse.vercel.app/jwt",
+            result?.user?.email,
+            {
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             if (res.data.success) {
               console.log(res);
@@ -47,9 +51,13 @@ const Login = () => {
       .then((result) => {
         const sendingUser = { email };
         axios
-          .post("http://localhost:5000/jwt", sendingUser, {
-            withCredentials: true,
-          })
+          .post(
+            "https://b8a11-server-side-jps27-cse.vercel.app/jwt",
+            sendingUser,
+            {
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             if (res.data.success) {
               console.log(res);

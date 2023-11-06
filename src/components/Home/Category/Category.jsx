@@ -10,7 +10,9 @@ const Category = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["get"],
     queryFn: () =>
-      fetch("http://localhost:5000/allJobs").then((res) => res.json()),
+      fetch("https://b8a11-server-side-jps27-cse.vercel.app/allJobs").then(
+        (res) => res.json()
+      ),
     initialData: [],
   });
 

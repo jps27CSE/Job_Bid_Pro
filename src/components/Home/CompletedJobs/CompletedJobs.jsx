@@ -15,7 +15,9 @@ const CompletedJobs = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/completed_jobs?email=${user?.email}`)
+      .get(
+        `https://b8a11-server-side-jps27-cse.vercel.app/completed_jobs?email=${user?.email}`
+      )
       .then((res) => {
         const filteredJobs = res.data.filter(
           (job) => job.status === "complete"
