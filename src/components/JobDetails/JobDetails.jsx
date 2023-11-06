@@ -5,7 +5,6 @@ import JobDetailsAnimation from "../looties/JobDetails.json";
 import Lottie from "lottie-react";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
-import axios from "axios";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
@@ -42,7 +41,7 @@ const JobDetails = () => {
       status: "pending",
     };
 
-    axios.post("http://localhost:5000/bid_request", bidJob).then((res) => {
+    axiosSecure.post("/bid_request", bidJob).then((res) => {
       if (res.status === 200) {
         toast("Successfully Bid Request");
         navigate("/my_bids");

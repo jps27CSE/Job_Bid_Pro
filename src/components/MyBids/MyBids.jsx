@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -26,7 +25,7 @@ const MyBids = () => {
     updatedBids[index].status = "complete";
     setBids(updatedBids);
 
-    axios.patch(`http://localhost:5000/my_bids/${id}`, {
+    axiosSecure.patch(`/my_bids/${id}`, {
       status: "complete",
     });
   };

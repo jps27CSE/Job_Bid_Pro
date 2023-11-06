@@ -1,22 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Bid_Requests = () => {
   const { user } = useContext(AuthContext);
   const [bids, setBids] = useState(null);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/my_bid_requests?email=${user?.email}`)
+    axiosSecure
+      .get(`/my_bid_requests?email=${user?.email}`)
       .then((res) => setBids(res.data));
-  }, [user?.email]);
+  }, [user?.email, axiosSecure]);
 
   const handleAccept = (index, id) => {
     const updatedBids = [...bids];
     updatedBids[index].status = "in-progress";
     setBids(updatedBids);
-    axios.patch(`http://localhost:5000/my_bid_request/${id}`, {
+    axiosSecure.patch(`/my_bid_request/${id}`, {
       status: "in-progress",
     });
   };
@@ -25,7 +26,7 @@ const Bid_Requests = () => {
     const updatedBids = [...bids];
     updatedBids[index].status = "canceled";
     setBids(updatedBids);
-    axios.patch(`http://localhost:5000/my_bid_request/${id}`, {
+    axiosSecure.patch(`/my_bid_request/${id}`, {
       status: "canceled",
     });
   };
