@@ -6,9 +6,12 @@ const CategoryItem = ({ job }) => {
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
         <h2 className="card-title">{job.job}</h2>
-        <p>Deadline: {job.deadline}</p>
         <p>
-          Price Range: {job.minimum} - {job.maximum} TK
+          <span className="font-bold">Deadline:</span> {job.deadline}
+        </p>
+        <p>
+          <span className="font-bold">Price Range:</span> {job.minimum} -{" "}
+          {job.maximum} TK
         </p>
         <p>{job.description}</p>
         <div className="card-actions justify-end">

@@ -32,7 +32,9 @@ const SinglePostedJob = ({ data, postedData, setPostedData }) => {
         <div className="card-body">
           <h2 className="card-title">{data.job}</h2>
           <p>{data.description}</p>
-          <p>Category: {data.category}</p>
+          <p>
+            <span className="font-bold">Category:</span> {data.category}
+          </p>
           <div className="card-actions justify-end">
             <Link to={`/posted_jobs/edit/${data._id}`}>
               <button className="btn btn-primary">Update</button>

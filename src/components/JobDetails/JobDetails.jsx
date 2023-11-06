@@ -68,13 +68,23 @@ const JobDetails = () => {
           </figure>
           <div className="card-body">
             <h2 className="card-title">{data?.job}</h2>
-            <p>Deadline: {data?.deadline}</p>
             <p>
-              Price Range: {data?.minimum} - {data.maximum}
+              <span className="font-bold">Deadline:</span> {data?.deadline}
             </p>
-            <p>Description: {data?.description}</p>
-            <p>Your Email: {user?.email}</p>
-            <p>Buyer Email: {data?.employer}</p>
+            <p>
+              <span className="font-bold">Price Range:</span> {data?.minimum} -{" "}
+              {data.maximum}
+            </p>
+            <p>
+              <span className="font-bold">Description:</span>{" "}
+              {data?.description}
+            </p>
+            <p>
+              <span className="font-bold">Your Email:</span> {user?.email}
+            </p>
+            <p>
+              <span className="font-bold">Buyer Email:</span> {data?.employer}
+            </p>
             <form onSubmit={handleFormSubmit}>
               <div className="form-control">
                 <label className="label">
