@@ -5,6 +5,7 @@ import EmptyAnimation from "../looties/Empty.json";
 import LoadingSpinner from "../looties/LoadingSpinner1.json";
 import Lottie from "lottie-react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const MyPostedJobs = () => {
   const { user } = useContext(AuthContext);
@@ -21,6 +22,9 @@ const MyPostedJobs = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>JobBidPro | My Posted Jobs</title>
+      </Helmet>
       {isLoading ? (
         <Lottie
           className="mx-auto w-80"

@@ -5,6 +5,7 @@ import EditAnimation from "../../looties/Edit.json";
 import Lottie from "lottie-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const EditJobs = () => {
   const { user } = useContext(AuthContext);
@@ -60,6 +61,9 @@ const EditJobs = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>JobBidPro | Edit Job</title>
+      </Helmet>
       <div>
         <div>
           <div>

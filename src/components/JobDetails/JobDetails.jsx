@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -51,6 +52,9 @@ const JobDetails = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>JobBidPro | Job Details</title>
+      </Helmet>
       {isLoading ? (
         <Lottie className="mx-auto w-80" animationData={Loading} loop={true} />
       ) : (

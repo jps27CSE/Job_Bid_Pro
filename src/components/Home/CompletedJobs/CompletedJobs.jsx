@@ -5,6 +5,7 @@ import EmptyJobAnimation from "../../looties/EmptyJob.json";
 import LoadingSpinner from "../../looties/LoadingSpinner1.json";
 import Lottie from "lottie-react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import axios from "axios";
 
 const CompletedJobs = () => {
   const { user } = useContext(AuthContext);
@@ -13,11 +14,15 @@ const CompletedJobs = () => {
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axiosSecure.get(`/my_bids?email=${user?.email}`).then((res) => {
-      const filteredJobs = res.data.filter((job) => job.status === "complete");
-      setCompletedJobs(filteredJobs);
-      setIsLoading(false);
-    });
+    axios
+      .get(`http://localhost:5000/completed_jobs?email=${user?.email}`)
+      .then((res) => {
+        const filteredJobs = res.data.filter(
+          (job) => job.status === "complete"
+        );
+        setCompletedJobs(filteredJobs);
+        setIsLoading(false);
+      });
   }, [user?.email, axiosSecure]);
 
   return (

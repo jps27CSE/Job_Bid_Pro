@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const Bid_Requests = () => {
   const { user } = useContext(AuthContext);
@@ -33,9 +34,11 @@ const Bid_Requests = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>JobBidPro | Bid Requests</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead>
             <tr>
               <th>Job Title</th>

@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { loginUser, googleLogin } = useContext(AuthContext);
@@ -71,6 +72,9 @@ const Login = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>JobBidPro | Login</title>
+      </Helmet>
       <div>
         <div className="hero min-h-screen ">
           <div className="hero-content flex-col lg:flex-row-reverse">

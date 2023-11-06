@@ -7,6 +7,7 @@ import { updateProfile } from "firebase/auth";
 import LoginAnimation from "../looties/register.json";
 import Lottie from "lottie-react";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 const Register = () => {
   const { registerUser, googleLogin } = useContext(AuthContext);
 
@@ -90,6 +91,9 @@ const Register = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>JobBidPro | Register</title>
+      </Helmet>
       <div>
         <div className="hero min-h-screen max-w-6xl mx-auto ">
           <div className="hero-content flex-col lg:flex-row">

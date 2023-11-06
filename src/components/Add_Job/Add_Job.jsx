@@ -5,6 +5,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const Add_Job = () => {
   const { user } = useContext(AuthContext);
@@ -50,6 +51,9 @@ const Add_Job = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>JobBidPro | Add Jobs</title>
+      </Helmet>
       <div>
         <div>
           <h1 className="text-4xl font-bold text-center mt-5 mb-2">Add Job</h1>
