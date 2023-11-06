@@ -10,6 +10,7 @@ import MyPostedJobs from "../components/MyPostedJobs/MyPostedJobs";
 import EditJobs from "../components/MyPostedJobs/EditJobs/EditJobs";
 import Bid_Requests from "../components/Bid_Requests/Bid_Requests";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -31,19 +32,35 @@ const router = createBrowserRouter([
       },
       {
         path: "/add_job",
-        element: <Add_Job />,
+        element: (
+          <PrivateRoute>
+            <Add_Job />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/job_deteails/:id",
-        element: <JobDetails />,
+        element: (
+          <PrivateRoute>
+            <JobDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my_bids",
-        element: <MyBids />,
+        element: (
+          <PrivateRoute>
+            <MyBids />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my_posted_jobs",
-        element: <MyPostedJobs />,
+        element: (
+          <PrivateRoute>
+            <MyPostedJobs />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/posted_jobs/edit/:id",
@@ -51,7 +68,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/bid_requests",
-        element: <Bid_Requests />,
+        element: (
+          <PrivateRoute>
+            <Bid_Requests />
+          </PrivateRoute>
+        ),
       },
     ],
   },
