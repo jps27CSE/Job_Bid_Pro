@@ -16,7 +16,9 @@ const EditJobs = () => {
 
   useEffect(() => {
     axios
-      .get(`https://b8a11-server-side-jps27-cse.vercel.app/job_details/${id}`)
+      .get(`https://b8a11-server-side-jps27-cse.vercel.app/job_details/${id}`, {
+        withCredentials: true,
+      })
       .then((item) => setData(item.data));
   }, [id]);
 
