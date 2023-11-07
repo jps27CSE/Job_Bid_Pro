@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import newsletterLogo from "../../assets/newsletter.jpg";
 
 const ReviewSection = () => {
   return (
@@ -34,9 +35,9 @@ const ReviewSection = () => {
             </form>
           </div>
           <img
-            src="https://source.unsplash.com/random/480x360"
+            src={newsletterLogo}
             alt=""
-            className="object-cover w-full rounded-md xl:col-span-3 dark:bg-gray-500"
+            className="object-cover w-[480px] h-[360px] rounded-md xl:col-span-3 dark:bg-gray-500"
           />
         </div>
       </section>
